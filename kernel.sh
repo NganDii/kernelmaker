@@ -16,12 +16,12 @@ echo "Copy your boot.img to Sdcard/Kernels"
 echo "Press y to continue"
 read r
 if [ $r == "y" ]; then
-su -c "rm -rf /data/local/AIK-mobile/boot.img"
-su -c mv -f /sdcard/Kernels/boot.img /data/local/AIK-mobile/
-su -c "(cd /data/local/AIK-mobile && ./unpackimg.sh)"
-su -c "(mv  -f /data/local/AIK-mobile/split_img/boot.img-zImage /sdcard/Kernels/anykernel/zImage)"
-su -c "(cd /data/local/AIK-mobile/ && ./cleanup.sh)"
-su -c rm -rf /data/local/AIK-mobile/boot.img
+su -c "rm -rf $aik/boot.img"
+su -c mv -f /sdcard/Kernels/boot.img $aik
+su -c "(cd $aik && ./unpackimg.sh)"
+su -c "(mv  -f $aik/split_img/boot.img-zImage /sdcard/Kernels/anykernel/zImage)"
+su -c "(cd $aik && ./cleanup.sh)"
+su -c rm -rf $aik/boot.img
 cd /sdcard/Kernels/anykernel
 echo
 echo "Enter you desired Kernel Name without space"
