@@ -27,8 +27,9 @@ cd /sdcard/Kernels/anykernel
 echo
 echo "Enter you desired Kernel Name without space"
 read kernel_name
-mkdir /sdcard/Kernels/Completed
-zip /sdcard/Kernels/Completed/$kernel_name *
+test ! -d /sdcard/Kernels/Completed && mkdir /sdcard/Kernels/Completed
+zip -r -0 "$kernel_name".zip *
+mv "$kernel_name".zip /sdcard/Kernels/Completed/
 rm -rf /sdcard/Kernels/anykernel
 echo
 echo "Successful! Check Completed folder"
