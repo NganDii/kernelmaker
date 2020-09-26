@@ -4,6 +4,7 @@ rm -rf ~/anykernel
 rm -rf /sdcard/Kernels/anykernel
 test ! -d /sdcard/Kernels && mkdir -p /sdcard/Kernels
 mkdir /sdcard/Kernels/anykernel
+cd ~/
 git clone https://github.com/NganDii/anykernel
 mv -f $HOME/anykernel/anykernel.zip /sdcard/Kernels/anykernel
 cd /sdcard/Kernels/anykernel
