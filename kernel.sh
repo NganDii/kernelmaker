@@ -21,7 +21,11 @@ su -c "rm -rf $aik/boot.img" > /dev/null 2>&1
 su -c mv /sdcard/Kernels/*.img /sdcard/Kernels/boot.img
 su -c mv -f /sdcard/Kernels/boot.img ${aik}/boot.img
 su -c "(cd ${aik} && ./unpackimg.sh)"
-su -c "(mv  -f ${aik}/split_img/boot.img-zImage /sdcard/Kernels/anykernel/zImage)"
+if [ -e "${aik}/split_img/boot.img-zImage" ]; then
+  su -c "(mv  -f ${aik}/split_img/boot.img-zImage /sdcard/Kernels/anykernel/zImage)"
+else
+  su -c "(mv  -f ${aik}/split_img/boot.img-kernel /sdcard/Kernels/anykernel/zImage)"
+fi
 su -c "(cd ${aik} && ./cleanup.sh)"
 su -c rm -rf ${aik}/boot.img
 cd /sdcard/Kernels/anykernel
