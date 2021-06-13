@@ -13,21 +13,22 @@ cd /sdcard/Kernels/anykernel
 
 unzip /sdcard/Kernels/anykernel/anykernel.zip && rm anykernel.zip
 
-echo "Copy your boot.img to Sdcard/Kernels"
-echo "Press y to continue"
+echo -e "\n\n\e[91mCopy your boot.img to Sdcard/Kernels"
+echo -e "\e[92mPress y to continue\e[0m"
 read r
 if [ $r == "y" ]; then
-su -c "rm -rf $aik/boot.img"
-su -c mv -f /sdcard/Kernels/boot.img $aik
-su -c "(cd $aik && ./unpackimg.sh)"
-su -c "(mv  -f $aik/split_img/boot.img-zImage /sdcard/Kernels/anykernel/zImage)"
-su -c "(cd $aik && ./cleanup.sh)"
-su -c rm -rf $aik/boot.img
+su -c "rm -rf $aik/boot.img" > /dev/null 2>&1
+su -c mv /sdcard/Kernels/*.img /sdcard/Kernels/boot.img
+su -c mv -f /sdcard/Kernels/boot.img ${aik}/boot.img
+su -c "(cd ${aik} && ./unpackimg.sh)"
+su -c "(mv  -f ${aik}/split_img/boot.img-zImage /sdcard/Kernels/anykernel/zImage)"
+su -c "(cd ${aik} && ./cleanup.sh)"
+su -c rm -rf ${aik}/boot.img
 cd /sdcard/Kernels/anykernel
 echo
-echo "Enter you desired Kernel Name without space"
+echo -n "Enter you desired Kernel Name without space: "
 read kernel_name
-test ! -d /sdcard/Kernels/Completed && mkdir /sdcard/Kernels/Completed
+mkdir -p /sdcard/Kernels/Completed
 zip -r -0 "$kernel_name".zip *
 mv "$kernel_name".zip /sdcard/Kernels/Completed/
 rm -rf /sdcard/Kernels/anykernel
@@ -36,7 +37,7 @@ echo "Successful! Check Completed folder"
 rm -rf $HOME/anykernel
 
 else
-echo "Wrong Input"
+echo -e "Please run it again after you are ready\n"
 fi
 
 
